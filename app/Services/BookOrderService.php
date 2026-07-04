@@ -17,9 +17,7 @@ class BookOrderService
         string $sort,
         string $direction
     ): array {
-
         $page = max(1, $page);
-
         $offset = ($page - 1) * $limit;
 
         return [
@@ -77,15 +75,10 @@ class BookOrderService
     private function validate(array $data): array
     {
         $customerId = (int)($data['customer_id'] ?? 0);
-
         $bookTitle = trim($data['book_title'] ?? '');
-
         $quantity = (int)($data['quantity'] ?? 0);
-
         $unitPrice = (float)($data['unit_price'] ?? 0);
-
         $status = trim($data['status'] ?? '');
-
         $errors = [];
 
         if ($customerId <= 0) {
@@ -121,17 +114,11 @@ class BookOrderService
         }
 
         return [
-
             'customer_id' => $customerId,
-
             'book_title' => $bookTitle,
-
             'quantity' => $quantity,
-
             'unit_price' => $unitPrice,
-
             'status' => $status
-
         ];
     }
 

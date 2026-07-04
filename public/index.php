@@ -9,6 +9,7 @@ require __DIR__.'/../app/Controllers/DashboardController.php';
 require __DIR__.'/../app/Controllers/HealthController.php';
 require __DIR__.'/../app/Controllers/AuthController.php';
 require __DIR__.'/../app/Controllers/CustomerController.php';
+require __DIR__.'/../app/Controllers/BookOrderController.php';
 
 $isHttps = (
     (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
@@ -103,6 +104,39 @@ $router->post('/customers/update', [
 
 $router->post('/customers/delete', [
     CustomerController::class,
+    'delete'
+]);
+
+//**************
+// BOOK ORDER
+//**************
+$router->get('/book-orders', [
+    BookOrderController::class,
+    'index'
+]);
+
+$router->get('/book-orders/create', [
+    BookOrderController::class,
+    'create'
+]);
+
+$router->post('/book-orders', [
+    BookOrderController::class,
+    'store'
+]);
+
+$router->get('/book-orders/edit', [
+    BookOrderController::class,
+    'edit'
+]);
+
+$router->post('/book-orders/update', [
+    BookOrderController::class,
+    'update'
+]);
+
+$router->post('/book-orders/delete', [
+    BookOrderController::class,
     'delete'
 ]);
 

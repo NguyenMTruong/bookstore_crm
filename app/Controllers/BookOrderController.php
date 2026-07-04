@@ -18,12 +18,9 @@ class BookOrderController
         require_login();
 
         $keyword = trim($_GET['q'] ?? '');
-
         $page = (int)($_GET['page'] ?? 1);
-
         $sort = $_GET['sort'] ?? 'created_at';
-
-        $direction = $_GET['direction'] ?? 'desc';
+        $direction = $_GET['direction'] ?? 'asc';
 
         $result = $this->service->getOrders(
             $keyword,

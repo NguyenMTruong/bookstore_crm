@@ -35,7 +35,6 @@ class Router
 
         [$controller, $action]
             = $this->routes[$path][$method];
-
         (new $controller())->$action();
     }
 }
