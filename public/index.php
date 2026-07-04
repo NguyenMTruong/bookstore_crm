@@ -2,10 +2,11 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-require __DIR__.'./app/Core/Router.php';
+require __DIR__.'/../app/Core/Router.php';
 
-require __DIR__.'./app/Controllers/HomeController.php';
-require __DIR__.'./app/Controllers/DashboardController.php';
+require __DIR__.'/../app/Controllers/HomeController.php';
+require __DIR__.'/../app/Controllers/DashboardController.php';
+require __DIR__.'/../app/Controllers/HealthController.php';
 
 $router=new Router();
 
@@ -19,6 +20,11 @@ $router->get('/dashboard',[
     'index'
 ]);
 
+$router->get('/health', [
+    HealthController::class,
+    'index'
+]);
+
 $router->dispatch(
     $_SERVER['REQUEST_METHOD'],
     parse_url(
@@ -26,3 +32,4 @@ $router->dispatch(
         PHP_URL_PATH
     )
 );
+
