@@ -8,6 +8,7 @@ require __DIR__.'/../app/Controllers/HomeController.php';
 require __DIR__.'/../app/Controllers/DashboardController.php';
 require __DIR__.'/../app/Controllers/HealthController.php';
 require __DIR__.'/../app/Controllers/AuthController.php';
+require __DIR__.'/../app/Controllers/CustomerController.php';
 
 $isHttps = (
     (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
@@ -30,21 +31,33 @@ check_session_timeout();
 
 $router=new Router();
 
+//**************
+// HOME
+//**************
 $router->get('/',[
     HomeController::class,
     'index'
 ]);
 
+//**************
+// DASHBOARD
+//**************
 $router->get('/dashboard',[
     DashboardController::class,
     'index'
 ]);
 
+//**************
+// CHECK DB
+//**************
 $router->get('/health', [
     HealthController::class,
     'index'
 ]);
 
+//**************
+// AUTHENTICATE
+//**************
 $router->get('/login', [
     AuthController::class,
     'login'
@@ -58,6 +71,39 @@ $router->post('/login', [
 $router->post('/logout', [
     AuthController::class,
     'logout'
+]);
+
+//**************
+// CUSTOMER
+//**************
+$router->get('/customers', [
+    CustomerController::class,
+    'index'
+]);
+
+$router->get('/customers/create', [
+    CustomerController::class,
+    'create'
+]);
+
+$router->post('/customers', [
+    CustomerController::class,
+    'store'
+]);
+
+$router->get('/customers/edit', [
+    CustomerController::class,
+    'edit'
+]);
+
+$router->post('/customers/update', [
+    CustomerController::class,
+    'update'
+]);
+
+$router->post('/customers/delete', [
+    CustomerController::class,
+    'delete'
 ]);
 
 $router->dispatch(
