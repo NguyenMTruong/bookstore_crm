@@ -1,0 +1,124 @@
+# =========================
+
+# OS Files
+
+# =========================
+
+.DS_Store
+Thumbs.db
+
+# =========================
+
+# IDE / Editor
+
+# =========================
+
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+
+# =========================
+
+# Logs
+
+# =========================
+
+*.log
+storage/logs/*
+!storage/logs/.gitkeep
+
+# =========================
+
+# Environment Variables
+
+# =========================
+
+.env
+.env.local
+.env.production
+
+# =========================
+
+# Composer
+
+# =========================
+
+vendor/
+
+# =========================
+
+# Node.js (nếu có dùng)
+
+# =========================
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# =========================
+
+# Cache / Temporary Files
+
+# =========================
+
+.cache/
+tmp/
+temp/
+
+# =========================
+
+# Uploaded Files
+
+# =========================
+
+uploads/*
+!uploads/.gitkeep
+
+# =========================
+
+# Database Dumps
+
+# =========================
+
+*.sql.gz
+*.bak
+*.dump
+
+# =========================
+
+# PHPUnit
+
+# =========================
+
+.phpunit.result.cache
+
+# =========================
+
+# Coverage Reports
+
+# =========================
+
+coverage/
+build/
+
+# =========================
+
+# Runtime Files
+
+# =========================
+
+*.pid
+*.seed
+*.pid.lock
+
+# =========================
+
+# Sensitive Config (tuỳ chọn)
+
+# =========================
+
+config/database.local.php
+
