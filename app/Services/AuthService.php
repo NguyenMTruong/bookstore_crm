@@ -1,4 +1,6 @@
 <?php
+require_once __DIR__ . '/../Repositories/UserRepository.php';
+require_once __DIR__ . '/../Core/Database.php';
 class AuthService
 {
     private function repository(): UserRepository
@@ -14,7 +16,7 @@ class AuthService
 
         if(!$user)
             return null;
-        if($password != $user['password'])
+        if($password != $user['password_hash'])
             return null;
 
         return $user;
