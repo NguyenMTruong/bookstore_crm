@@ -178,5 +178,18 @@ class BookOrderRepository
 
         return $stmt->execute(['id' => $id]);
     }
+
+    public function getLastOrderCode(): ?string {
+        $sql = "
+            SELECT order_code
+            FROM book_orders
+            ORDER BY id DESC
+            LIMIT 1
+        ";
+
+        return $this->pdo
+            ->query($sql)
+            ->fetchColumn();
+    }
 }
 
