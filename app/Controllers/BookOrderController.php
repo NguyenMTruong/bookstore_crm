@@ -21,20 +21,24 @@ class BookOrderController
         $page = (int)($_GET['page'] ?? 1);
         $sort = $_GET['sort'] ?? 'created_at';
         $direction = $_GET['direction'] ?? 'asc';
+        $limit = 10;
 
         $result = $this->service->getOrders(
             $keyword,
             $page,
-            10,
+            $limit,
             $sort,
             $direction
         );
 
+        $totalPages = (int) ceil($result['total'] / $limit);
         view('book_orders/index', [
             'title' => 'Book Orders',
             'view' => 'book_orders/index',
             'orders' => $result['orders'],
+            'limit' => $limit,
             'total' => $result['total'],
+            'totalPages' => $totalPages,
             'page' => $page,
             'keyword' => $keyword,
             'sort' => $sort,
@@ -141,9 +145,9 @@ class BookOrderController
             $this->service->update($id, $_POST);
             flash(
                 'success',
-                'Order updated successfully.'
+                'Book order updated successfully.'
             );
-            redirect('/orders');
+            redirect('/book-orders');
         } catch (InvalidArgumentException $e) {
             flash(
                 'errors',
@@ -151,7 +155,7 @@ class BookOrderController
             );
         }
         flash('old', $_POST);
-        redirect("/orders/edit?id={$id}");
+        redirect("/book-orders/edit?id={$id}");
     }
 
     /**
@@ -166,7 +170,7 @@ class BookOrderController
         $this->service->delete($id);
         flash(
             'success',
-            'Order deleted successfully.'
+            'Book order deleted successfully.'
         );
         redirect('/orders');
     }

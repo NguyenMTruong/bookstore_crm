@@ -27,9 +27,14 @@ function flash(string $key, mixed $message): void
  
 function get_flash(string $key, mixed $default = null): mixed
 {
-    if (empty($_SESSION['flash'][$key])) return null;
+    if (!isset($_SESSION['flash'][$key])) {
+        return $default;
+    }
+
     $message = $_SESSION['flash'][$key];
+
     unset($_SESSION['flash'][$key]);
+
     return $message;
 }
  

@@ -1,44 +1,66 @@
 <?php
 class DashboardController
 {
-    private function getDB(): mixed{
-        $config = require __DIR__.'/../../config/database.php';
-        $pdo = (new Database($config));
-        return $pdo ->getConnection();
+    private function getDB(): PDO
+    {
+        $config = require __DIR__ . '/../../config/database.php';
+
+        return (new Database($config))->getConnection();
     }
 
     public function index(): void
     {
         require_login();
-        
+
         $pdo = $this->getDB();
 
-        $customers = (int) $pdo->query(
-            "SELECT COUNT(*) FROM customers"
-        )->fetchColumn();
+        // Tổng số khách hàng
+        $customers = (int) $pdo
+            ->query("SELECT COUNT(*) FROM customers")
+            ->fetchColumn();
 
-        $orders = (int) $pdo->query(
-            "SELECT COUNT(*) FROM book_orders"
-        )->fetchColumn();
+        // Tổng số đơn hàng
+        $totalOrders = (int) $pdo
+            ->query("SELECT COUNT(*) FROM book_orders")
+            ->fetchColumn();
 
-        $stmt = $pdo->prepare(
-            "SELECT COUNT(*) FROM book_orders WHERE status = :status"
-        );
-        $stmt->execute([':status' => 'pending']);
-        $pending = (int) $stmt->fetchColumn();
+        // Tổng số user
+        $totalUsers = (int) $pdo
+            ->query("SELECT COUNT(*) FROM users")
+            ->fetchColumn();
 
-        $stmt->execute([':status' => 'completed']);
-        $completed = (int) $stmt->fetchColumn();
+        // Tổng doanh thu
+        $totalRevenue = (float) $pdo
+            ->query("
+                SELECT COALESCE(SUM(total_amount),0)
+                FROM book_orders
+            ")
+            ->fetchColumn();
+
+        // 5 khách hàng mới nhất
+        $stmt = $pdo->prepare("
+            SELECT
+                name,
+                email,
+                created_at
+            FROM customers
+            ORDER BY created_at DESC
+            LIMIT 5
+        ");
+
+        $stmt->execute();
+
+        $recentCustomers = $stmt->fetchAll();
 
         view('dashboard/index', [
             'title' => 'Dashboard',
             'view' => 'dashboard/index',
-            'statistics' => [
-                'customers' => $customers,
-                'orders' => $orders,
-                'pending' => $pending,
-                'completed' => $completed,
-            ]
+
+            'customers' => $customers,
+            'totalOrders' => $totalOrders,
+            'totalUsers' => $totalUsers,
+            'totalRevenue' => $totalRevenue,
+            'recentCustomers' => $recentCustomers
         ]);
     }
 }

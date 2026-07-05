@@ -1,5 +1,7 @@
 <?php
-require __DIR__.'/../Services/AuthService.php';
+
+require __DIR__ . '/../Services/AuthService.php';
+
 class AuthController
 {
     private AuthService $authService;
@@ -10,17 +12,19 @@ class AuthController
     }
 
     /**
-     * Hiển thị form login
+     * GET /login
      */
     public function login(): void
     {
-        if(is_logged_in())
+        if (is_logged_in()) {
             redirect('/dashboard');
+        }
 
         view('auth/login', [
             'title' => 'Login',
-            'view' => 'auth/login',
-            'errors' => get_flash('errors', []),
+            'view'  => 'auth/login',
+            'error' => get_flash('error'),
+            'success' => get_flash('success'),
             'old' => get_flash('old', [])
         ]);
     }
@@ -35,22 +39,19 @@ class AuthController
 
         $errors = [];
 
-        // Validate email
         if ($email === '') {
-            $errors['email'] = 'Email is required.';
+            $errors[] = 'Email is required.';
         } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors['email'] = 'Invalid email format.';
+            $errors[] = 'Invalid email format.';
         }
 
-        // Validate password
         if ($password === '') {
-            $errors['password'] = 'Password is required.';
+            $errors[] = 'Password is required.';
         }
 
-        // Nếu validate lỗi
         if (!empty($errors)) {
 
-            flash('errors', $errors);
+            flash('error', implode('<br>', $errors));
 
             flash('old', [
                 'email' => $email
@@ -59,14 +60,11 @@ class AuthController
             redirect('/login');
         }
 
-        // Kiểm tra tài khoản
         $user = $this->authService->attempt($email, $password);
 
         if (!$user) {
 
-            flash('errors', [
-                'password' => 'Email or password is incorrect.'
-            ]);
+            flash('error', 'Email hoặc mật khẩu không đúng.');
 
             flash('old', [
                 'email' => $email
@@ -86,10 +84,7 @@ class AuthController
         $_SESSION['last_activity_at'] = time();
         $_SESSION['user_agent'] = $_SERVER['HTTP_USER_AGENT'] ?? '';
 
-        flash(
-            'success',
-            'Login successfully.'
-        );
+        flash('success', 'Đăng nhập thành công.');
 
         redirect('/dashboard');
     }
@@ -103,10 +98,7 @@ class AuthController
 
         session_start();
 
-        flash(
-            'success',
-            'Logout successfully.'
-        );
+        flash('success', 'Đăng xuất thành công.');
 
         redirect('/login');
     }

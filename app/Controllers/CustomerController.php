@@ -14,41 +14,33 @@ class CustomerController
         require_login();
 
         $keyword = trim($_GET['q'] ?? '');
-
         $page = (int)($_GET['page'] ?? 1);
-
         $sort = $_GET['sort'] ?? 'created_at';
-
         $direction = $_GET['direction'] ?? 'desc';
+        $limit = 10;
 
         $result = $this->service->getCustomers(
             $keyword,
             $page,
-            10,
+            $limit,
             $sort,
             $direction
         );
 
+        $totalPages = (int) ceil($result['total'] / $limit);
+
         view('customers/index', [
-
             'title' => 'Customers',
-
             'view' => 'customers/index',
-
             'customers' => $result['customers'],
-
             'total' => $result['total'],
-
+            'totalPages' => $totalPages,
             'page' => $page,
-
             'keyword' => $keyword,
-
             'sort' => $sort,
-
             'direction' => $direction,
-
+            'limit' => $limit,
             'success' => get_flash('success')
-
         ]);
     }
 
@@ -59,11 +51,8 @@ class CustomerController
         view('customers/create', [
 
             'title' => 'Create Customer',
-
             'view' => 'customers/create',
-
             'errors' => get_flash('errors', []),
-
             'old' => get_flash('old', [])
 
         ]);
@@ -133,11 +122,8 @@ class CustomerController
         view('customers/edit', [
 
             'title' => 'Edit Customer',
-
             'view' => 'customers/edit',
-
             'customer' => $customer,
-
             'errors' => get_flash('errors', [])
 
         ]);
