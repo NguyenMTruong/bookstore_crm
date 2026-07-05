@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../Services/BookOrderService.php';
+require_once __DIR__ . '/../Services/BookOrderService.php';
 
 class BookOrderController
 {
@@ -66,6 +66,15 @@ class BookOrderController
     {
         require_login();
 
+        check_rate_limit();
+
+        if (!empty($_POST['website'])) {
+
+            http_response_code(400);
+
+            exit('Spam detected.');
+        }
+
         try {
             $this->service->create($_POST);
             flash(
@@ -82,7 +91,6 @@ class BookOrderController
                 'errors',
                 json_decode($e->getMessage(), true)
             );
-
         }
         flash('old', $_POST);
         redirect('/orders/create');
@@ -163,4 +171,3 @@ class BookOrderController
         redirect('/orders');
     }
 }
-

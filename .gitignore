@@ -122,3 +122,4 @@ build/
 
 config/database.local.php
 
+htmlCode/

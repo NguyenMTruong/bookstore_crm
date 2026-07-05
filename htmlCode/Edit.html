@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Mini CRM - Edit Lead</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-900 text-white px-6 py-3 flex items-center justify-between">
+    <span class="font-semibold text-base tracking-wide">Secure Mini CRM</span>
+    <div class="flex items-center gap-6 text-sm">
+      <a href="#" class="hover:text-gray-300 transition-colors">Dashboard</a>
+      <a href="#" class="font-bold text-white">Leads</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Create Lead</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Orders</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Create Order</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="px-10 py-8">
+    <h1 class="text-xl font-bold text-gray-800 mb-1">Edit Lead</h1>
+    <p class="text-sm text-gray-500 mb-6">
+      GET lấy dữ liệu hiện tại theo id; POST /leads/update validate rồi redirect vềh sách dan.
+    </p>
+
+    <!-- Form card -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 max-w-lg px-0 py-0 overflow-hidden">
+      <div class="px-5 py-4 border-b border-gray-200">
+        <h2 class="text-sm font-bold text-gray-800">Lead #12</h2>
+      </div>
+
+      <form>
+        <!-- Name -->
+        <div class="flex items-center border-b border-gray-200 px-5 py-3">
+          <label class="w-20 text-sm font-semibold text-gray-700 shrink-0">Name</label>
+          <input
+            type="text"
+            value="Anna Nguyen"
+            class="flex-1 border border-gray-300 rounded px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Email -->
+        <div class="flex items-center border-b border-gray-200 px-5 py-3">
+          <label class="w-20 text-sm font-semibold text-gray-700 shrink-0">Email</label>
+          <input
+            type="email"
+            value="anna@example.com"
+            class="flex-1 border border-gray-300 rounded px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Phone -->
+        <div class="flex items-center border-b border-gray-200 px-5 py-3">
+          <label class="w-20 text-sm font-semibold text-gray-700 shrink-0">Phone</label>
+          <input
+            type="text"
+            value="0909000001"
+            class="flex-1 border border-gray-300 rounded px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Status -->
+        <div class="flex items-center border-b border-gray-200 px-5 py-3">
+          <label class="w-20 text-sm font-semibold text-gray-700 shrink-0">Status</label>
+          <input
+            type="text"
+            value="contacted"
+            class="flex-1 border border-gray-300 rounded px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Note -->
+        <div class="flex items-center border-b border-gray-200 px-5 py-3">
+          <label class="w-20 text-sm font-semibold text-gray-700 shrink-0">Note</label>
+          <input
+            type="text"
+            value="Đã gọi lần 1, hẹn tư vấn lại."
+            class="flex-1 border border-gray-300 rounded px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+        </div>
+
+        <!-- Actions -->
+        <div class="px-5 py-4 flex gap-3">
+          <button
+            type="submit"
+            class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-medium px-6 py-2 rounded transition-colors"
+          >
+            Update
+          </button>
+          <button
+            type="button"
+            class="bg-red-500 hover:bg-red-600 active:bg-red-700 text-white text-sm font-medium px-6 py-2 rounded transition-colors"
+          >
+            Delete
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>
+

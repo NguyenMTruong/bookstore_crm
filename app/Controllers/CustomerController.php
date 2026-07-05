@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__.'/../Services/CustomerService.php';
+require_once __DIR__ . '/../Services/CustomerService.php';
 class CustomerController
 {
     private CustomerService $service;
@@ -11,7 +11,7 @@ class CustomerController
 
     public function index(): void
     {
-        // require_login();
+        require_login();
 
         $keyword = trim($_GET['q'] ?? '');
 
@@ -54,7 +54,7 @@ class CustomerController
 
     public function create(): void
     {
-        // require_login();
+        require_login();
 
         view('customers/create', [
 
@@ -71,7 +71,16 @@ class CustomerController
 
     public function store(): void
     {
-        // require_login();
+        require_login();
+
+        check_rate_limit();
+
+        if (!empty($_POST['website'])) {
+
+            http_response_code(400);
+
+            exit('Spam detected.');
+        }
 
         try {
 
@@ -83,20 +92,17 @@ class CustomerController
             );
 
             redirect('/customers');
-
         } catch (DuplicateRecordException $e) {
 
             flash('errors', [
                 'email' => $e->getMessage()
             ]);
-
         } catch (InvalidArgumentException $e) {
 
             flash(
                 'errors',
                 json_decode($e->getMessage(), true)
             );
-
         }
 
         flash('old', $_POST);
@@ -106,7 +112,7 @@ class CustomerController
 
     public function edit(): void
     {
-        // require_login();
+        require_login();
 
         $id = (int)($_GET['id'] ?? 0);
 
@@ -139,7 +145,7 @@ class CustomerController
 
     public function update(): void
     {
-        // require_login();
+        require_login();
 
         $id = (int)($_POST['id'] ?? 0);
 
@@ -153,20 +159,17 @@ class CustomerController
             );
 
             redirect('/customers');
-
         } catch (DuplicateRecordException $e) {
 
             flash('errors', [
                 'email' => $e->getMessage()
             ]);
-
         } catch (InvalidArgumentException $e) {
 
             flash(
                 'errors',
                 json_decode($e->getMessage(), true)
             );
-
         }
 
         flash('old', $_POST);
@@ -176,7 +179,7 @@ class CustomerController
 
     public function delete(): void
     {
-        // require_login();
+        require_login();
 
         $id = (int)($_POST['id'] ?? 0);
 
@@ -190,4 +193,3 @@ class CustomerController
         redirect('/customers');
     }
 }
-

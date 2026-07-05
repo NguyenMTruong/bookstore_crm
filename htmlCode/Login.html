@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Secure Mini CRM - Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-gray-900 text-white px-6 py-3 flex items-center justify-between">
+    <span class="font-semibold text-base tracking-wide">Secure Mini CRM</span>
+    <div class="flex items-center gap-6 text-sm">
+      <a href="#" class="hover:text-gray-300 transition-colors">Dashboard</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Leads</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Create Lead</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Orders</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Create Order</a>
+      <a href="#" class="hover:text-gray-300 transition-colors">Logout</a>
+    </div>
+  </nav>
+
+  <!-- Main content -->
+  <main class="px-10 py-8">
+    <h1 class="text-2xl font-bold text-gray-800 mb-1">Login</h1>
+    <p class="text-sm text-gray-500 mb-6">
+      Sau khi login dùng: session_regenerate_id(true), set session user, flash success, redirect /dashboard.
+    </p>
+
+    <!-- Login card -->
+    <div class="bg-white rounded-xl shadow-sm border border-gray-200 max-w-sm mx-auto px-8 py-7">
+      <form>
+        <!-- Email -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+          <input
+            type="email"
+            value="admin@example.com"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <!-- Password -->
+        <div class="mb-4">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+          <input
+            type="password"
+            value="password"
+            class="w-full border border-gray-300 rounded px-3 py-2 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          />
+        </div>
+
+        <!-- Remember me -->
+        <div class="mb-5">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="w-4 h-4 border-gray-300 rounded" />
+            <span class="text-sm text-gray-700">Remember me</span>
+          </label>
+          <p class="text-xs text-blue-500 mt-1 ml-6">
+            Không lưu password trong cookie; chỉ giới thiệu rủi ro và token nhé đăng nhập.
+          </p>
+        </div>
+
+        <!-- Submit -->
+        <button
+          type="submit"
+          class="bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white text-sm font-medium px-6 py-2 rounded transition-colors"
+        >
+          Login
+        </button>
+      </form>
+    </div>
+  </main>
+
+</body>
+</html>

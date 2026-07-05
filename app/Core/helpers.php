@@ -110,3 +110,22 @@ function logout_clean(): void
     session_destroy();
 }
 
+function check_rate_limit(int $seconds = 5): void
+{
+    $last = $_SESSION['last_submit'] ?? 0;
+
+    if (time() - $last < $seconds) {
+
+        flash(
+            'errors',
+            ['Please wait a few seconds before submitting again.']
+        );
+
+        redirect($_SERVER['HTTP_REFERER'] ?? '/');
+
+        exit;
+    }
+
+    $_SESSION['last_submit'] = time();
+}
+

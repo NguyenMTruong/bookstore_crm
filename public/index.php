@@ -140,11 +140,29 @@ $router->post('/book-orders/delete', [
     'delete'
 ]);
 
-$router->dispatch(
-    $_SERVER['REQUEST_METHOD'],
-    parse_url(
-        $_SERVER['REQUEST_URI'],
-        PHP_URL_PATH
-    )
-);
+try {
+
+    $router->dispatch(
+        $_SERVER['REQUEST_METHOD'],
+        parse_url(
+            $_SERVER['REQUEST_URI'],
+            PHP_URL_PATH
+        )
+    );
+
+} catch (Throwable $e) {
+
+    error_log($e);
+
+    http_response_code(500);
+
+    view('errors/500', [
+
+        'title' => '500',
+
+        'view' => 'errors/500'
+
+    ]);
+
+}
 
